@@ -1,1 +1,4 @@
-# Example document
+#!virtenv/bin/python
+
+from app import app
+app.run(debug=True)
