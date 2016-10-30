@@ -2,11 +2,15 @@ from flask import render_template, request
 from app import app
 
 
-POLITICIANS = {"realDonaldTrump": "Donald Trump (@realDonaldTrump)",
-               "HiliaryClinton": "Hiliary Clinton (@HiliaryClinton)",
-               "BernieSanders": "Bernie Sanders (@BernieSanders)",
-               "BarackObama": "Barack Obama (@BarackObama)",
-               "tedcruz": "Ted Cruz (@tedcruz)"
+POLITICIANS = {"realDonaldTrump": "Donald Trump",
+               "HiliaryClinton": "Hiliary Clinton",
+               "BernieSanders": "Bernie Sanders",
+               "BarackObama": "Barack Obama",
+               "tedcruz": "Ted Cruz",
+               "JoeBiden": "Joe Biden",
+               "GovPenceIN": "Mike Pence",
+               "SylvesterTurner": "Sylvester Turner",
+               "GregAbbott_TX": "Greg Abbott"
                }
 
 
@@ -29,6 +33,8 @@ def results():
                                )
     else:
         return render_template('results.html',
-                               twitter_1=POLITICIANS[twitter_1],
-                               twitter_2=POLITICIANS[twitter_2]
+                               name_1=POLITICIANS[twitter_1],
+                               name_2=POLITICIANS[twitter_2],
+                               twitter_1=twitter_1,
+                               twitter_2=twitter_2
                                )
