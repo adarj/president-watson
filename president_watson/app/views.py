@@ -1,6 +1,6 @@
 from flask import render_template, request
 from app import app
-from .analyzer import President, Tweeter
+from .analyze import President, Tweeter
 
 
 POLITICIANS = {"realDonaldTrump": "Donald Trump",
