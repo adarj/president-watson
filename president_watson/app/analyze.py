@@ -35,7 +35,7 @@ class President:
                                               )
         img = statuses[0].user.profile_image_url
 
-        return img[:-11] + ".jpg"
+        return img.replace("_normal", "")
 
     def analyze(self, handle):
         twitter_api = twitter.Api(
