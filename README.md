@@ -1,2 +1,3 @@
-# president_watson
-Judges the personality of politicians using their Twitter feed.
+# President Watson
+
+Compares the personality traits of two politicians using the Watson API and Twitter.
