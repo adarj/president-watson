@@ -20,6 +20,15 @@ class President:
         self.twitter_access_secret = apiFile.readline()[:-1]
         self.pi_username = apiFile.readline()[:-1]
         self.pi_password = apiFile.readline()[:-1]
+        
+    def getProfilePicture(self, handle):
+        twitter_api = twitter.Api(consumer_key=self.twitter_consumer_key, consumer_secret=self.twitter_consumer_secret, access_token_key=self.twitter_access_token, access_token_secret=self.twitter_access_secret)
+
+        statuses = twitter_api.GetUserTimeline(screen_name = handle, count = 1, include_rts=False)
+        
+        img = statuses[0].user.profile_image_url
+        
+        return img[:-11] + ".jpg"
 
     def analyze(self, handle):
         twitter_api = twitter.Api(
@@ -111,6 +120,9 @@ class Tweeter:
         self.modesty = personalityDict["Modesty"]
         self.efficacy = personalityDict["Self-efficacy"]
         self.intellect = personalityDict["Intellect"]
+
+    def setProfilePicture(self, imgURL):
+        self.picture = imgURL
 
     def getTweeter(self):
         return self
