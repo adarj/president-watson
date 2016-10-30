@@ -37,7 +37,7 @@ def results():
         president.set_API_keys()
 
         politician_1 = Tweeter('@' + twitter_1)
-        flattened_values_1 = president.flatten(president.analyze(politician_1.handle))
+        flattened_values_1 = president.flatten(president.analyze('@'+twitter_1))
         politician_1.setPersonalityValues(flattened_values_1)
 
         return render_template('results.html',

@@ -12,7 +12,7 @@ class President:
         self.pi_password = ''
 
     def set_API_keys(self):
-        apiFile = open("static/keys/api.txt", encoding="utf-8")
+        apiFile = open("app/static/api_keys/api.txt", encoding="utf-8")
 
         self.twitter_consumer_key = apiFile.readline()[:-1]
         self.twitter_consumer_secret = apiFile.readline()[:-1]
