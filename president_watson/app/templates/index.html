@@ -24,20 +24,22 @@
         </h3>
         <div class="content-subhead is-center">
           <select name="Politician_1">
-            <option value="Red">Red</option>
-            <option value="Green">Green</option>        
+            {% for politician in politicians %}
+            <option value={{politician}}>{{politicians[politician]}}</option>
+            {% endfor %}
           </select>
         </div>
       </div>
 
       <div class="pure-u-1-2">
         <h3 class="content-subhead is-center">
-          Second Politiician
+          Second Politician
         </h3>
         <div class="content-subhead is-center">
           <select name="Politician_2">
-            <option value="Red">Red</option>
-            <option value="Green">Green</option>        
+            {% for politician in politicians %}
+            <option value={{politician}}>{{politicians[politician]}}</option>
+            {% endfor %}
           </select>
         </div>
       </div>
