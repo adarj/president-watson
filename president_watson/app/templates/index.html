@@ -1,23 +1,6 @@
-<!doctype html>
-<html>
+{% extends "base.html" %}
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>President Watson</title>
-
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-    <link rel="stylesheet" href="/static/style.css">
-  </head>
-
-  <div class="header">
-    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-      <a class="pure-menu-heading" href="">President Watson</a>
-    </div>
-  </div>
-
+{% block body %}
   <div class="splash-container">
     <div class="splash">
       <p class="splash-subhead">
@@ -26,4 +9,48 @@
     </div>
   </div>
 
-</html>
+  <form class="content-wrapper" name="Politicians" action="{{ url_for('results') }}" method="GET">
+    <div class="content">
+      <h2 class="content-head is-center">
+        Compare Politicians
+      </h2>
+    </div>
+
+    <div class="pure-g">
+
+      <div class="pure-u-1-2">
+        <h3 class="content-subhead is-center">
+          First Politician
+        </h3>
+        <div class="content-subhead is-center">
+          <select name="Politician_1">
+            <option value="Red">Red</option>
+            <option value="Green">Green</option>        
+          </select>
+        </div>
+      </div>
+
+      <div class="pure-u-1-2">
+        <h3 class="content-subhead is-center">
+          Second Politiician
+        </h3>
+        <div class="content-subhead is-center">
+          <select name="Politician_2">
+            <option value="Red">Red</option>
+            <option value="Green">Green</option>        
+          </select>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <div class="content-subhead is-center">
+          <button type="submit">Compare!</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+{% endblock %}
