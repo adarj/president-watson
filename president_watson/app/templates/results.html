@@ -4,16 +4,39 @@
   <div class="splash-container">
     <div class="splash">
       <p class="splash-subhead">
-      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. {{ liberalism }}
+      Using the IBM Watson API, we are able to extrapolate each politician's personality traits using data from their Twitter feed.
       </p>
     </div>
   </div>
 
   <div class="content-wrapper">
     <div class="content">
+      <div class="pure-g">
+        <div class="pure-u-1-2">
+          <div class="content-head" style="margin-left:auto;margin-right:auto">
+            <img class="is-center profile-picture" src={{ image_1 }} style="height:300px;display:block;margin-left:auto;margin-right:auto">
+            <h3 class="is-center">{{ name_1_ }} (@{{twitter_1_ }})</h3>
+          </div>
+        </div>
+        <div class="pure-u-1-2">
+          <div class="content-head" style="margin-left:auto;margin-right:auto">
+            <img class="is-center profile-picture" src={{ image_2 }} style="height:300px;display:block;margin-left:auto;margin-right:auto">
+            <h3 class="is-center">{{ name_2_ }} (@{{twitter_2_ }})</h3>
+          </div>
+        </div>
+      </div>
       <h2 class="content-head is-center">
-        Your Results
+        Based on their Twitter Feeds...
       </h2>
+
+      <div class="pure-g">
+        <div class="pure-u-1-1 is-center">
+          <p>{{ modesty_str_ }}</p>
+          <p>{{ liberalism_str_ }}</p>
+          <p>{{ anger_str_ }}</p>
+          <p>{{ intellect_str_ }}</p>
+        </div>
+      </div>
     </div>
   </div>
 

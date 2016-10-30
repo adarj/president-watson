@@ -20,14 +20,21 @@ class President:
         self.twitter_access_secret = apiFile.readline()[:-1]
         self.pi_username = apiFile.readline()[:-1]
         self.pi_password = apiFile.readline()[:-1]
-        
-    def getProfilePicture(self, handle):
-        twitter_api = twitter.Api(consumer_key=self.twitter_consumer_key, consumer_secret=self.twitter_consumer_secret, access_token_key=self.twitter_access_token, access_token_secret=self.twitter_access_secret)
 
-        statuses = twitter_api.GetUserTimeline(screen_name = handle, count = 1, include_rts=False)
-        
+    def getProfilePicture(self, handle):
+        twitter_api = twitter.Api(
+                                 consumer_key=self.twitter_consumer_key,
+                                 consumer_secret=self.twitter_consumer_secret,
+                                 access_token_key=self.twitter_access_token,
+                                 access_token_secret=self.twitter_access_secret
+                                 )
+        statuses = twitter_api.GetUserTimeline(
+                                              screen_name=handle,
+                                              count=1,
+                                              include_rts=False
+                                              )
         img = statuses[0].user.profile_image_url
-        
+
         return img[:-11] + ".jpg"
 
     def analyze(self, handle):
@@ -53,10 +60,10 @@ class President:
 
         for status in statuses:
             if (status.lang == 'en'):
-                tdgd += str(status.text.encode('utf-8'))
-                pi_result = personality_insights.profile(tdgd)
+                tdgd += str(status.text.encode('utf-8')) + " "
+        pi_result = personality_insights.profile(tdgd)
 
-                return pi_result
+        return pi_result
 
     # flatten function from codeacademy
     def flatten(self, orig):
