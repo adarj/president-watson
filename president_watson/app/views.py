@@ -1,5 +1,6 @@
 from flask import render_template, request
 from app import app
+from .president import President, Tweeter
 
 
 POLITICIANS = {"realDonaldTrump": "Donald Trump",
@@ -32,9 +33,17 @@ def results():
                                politicians=POLITICIANS
                                )
     else:
+        president = President()
+        president.set_API_keys()
+
+        politician_1 = Tweeter('@' + twitter_1)
+        flattened_values_1 = president.flatten(president.analyze(politician_1.handle))
+        politician_1.setPersonalityValues(flattened_values_1)
+
         return render_template('results.html',
                                name_1=POLITICIANS[twitter_1],
                                name_2=POLITICIANS[twitter_2],
                                twitter_1=twitter_1,
-                               twitter_2=twitter_2
+                               twitter_2=twitter_2,
+                               liberalism=politician_1.liberalism
                                )
