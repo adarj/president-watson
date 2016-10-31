@@ -1,13 +1,7 @@
-SizBhElt9lBywHsnDRSb6YYDD
-RVts1W1g0Wnd2VkMtNacmzZFQPGtdOomW2lQ4xlf5plvUwElWB
-58364068-gfx1dDuTZGI5iOrZllQUqsK0n6FqphutRkjQIAUVe
-DLY2qabj2Bu30k8yWiBNwhlXMUuFaOHpLIZjBK3wnq0kb
-31dcb1a7-28c5-4e9e-be27-03cdd65a3db8
-bryNkJZ4XtwE
-//ordering
-//twitter_consumer_key
-//twitter_consumer_secret
-//twitter_access_token
-//twitter_access_secret
-//pi_username
-//pi_password
+//ordering Place keys above this line in this order
+twitter_consumer_key
+twitter_consumer_secret
+twitter_access_token
+twitter_access_secret
+pi_username
+pi_password
