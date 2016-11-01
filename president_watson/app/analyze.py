@@ -15,6 +15,7 @@ class Politician:
         self.pi_password = ''
 
         self.set_api_keys()
+        self.receive_twitter_data()
         self.set_profile_picture()
         self.analyze_tweets()
         self.flatten()
@@ -30,42 +31,31 @@ class Politician:
         self.pi_username = api_file.readline()[:-1]
         self.pi_password = api_file.readline()[:-1]
 
-    def set_profile_picture(self):
+    def receive_twitter_data(self):
         twitter_api = twitter.Api(
                                  consumer_key=self.twitter_consumer_key,
                                  consumer_secret=self.twitter_consumer_secret,
                                  access_token_key=self.twitter_access_token,
                                  access_token_secret=self.twitter_access_secret
                                  )
-        statuses = twitter_api.GetUserTimeline(
-                                              screen_name=self.twitter_handle,
-                                              count=1,
-                                              include_rts=False
-                                              )
-        img = statuses[0].user.profile_image_url
-        self.profile_pic = img.replace("_normal", "")
-
-    def analyze_tweets(self):
-        twitter_api = twitter.Api(
-                                 consumer_key=self.twitter_consumer_key,
-                                 consumer_secret=self.twitter_consumer_secret,
-                                 access_token_key=self.twitter_access_token,
-                                 access_token_secret=self.twitter_access_secret
-                                 )
-
-        personality_insights = PersonalityInsights(
-                                                  username=self.pi_username,
-                                                  password=self.pi_password
-                                                  )
-
-        statuses = twitter_api.GetUserTimeline(
+        self.statuses = twitter_api.GetUserTimeline(
                                               screen_name=self.twitter_handle,
                                               count=200,
                                               include_rts=False
                                               )
 
+    def set_profile_picture(self):
+        img = self.statuses[0].user.profile_image_url
+        self.profile_pic = img.replace("_normal", "")
+
+    def analyze_tweets(self):
+        personality_insights = PersonalityInsights(
+                                                  username=self.pi_username,
+                                                  password=self.pi_password
+                                                  )
+
         twitter_messages = ""
-        for status in statuses:
+        for status in self.statuses:
             if (status.lang == 'en'):
                 twitter_messages += str(status.text.encode('utf-8')) + " "
 
