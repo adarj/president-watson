@@ -1,6 +1,6 @@
 from flask import render_template, request
 from app import app
-from .analyze import President, Tweeter
+from .analyze import Politician, Tweeter
 
 
 POLITICIANS = {"realDonaldTrump": "Donald Trump",
@@ -36,15 +36,15 @@ def results():
                                politicians=POLITICIANS
                                )
     else:
-        president = President()
-        president.set_API_keys()
+        politician = Politician()
+        politician.set_API_keys()
 
         name_1 = POLITICIANS[twitter_1]
         name_2 = POLITICIANS[twitter_2]
 
         politician_1 = Tweeter('@' + twitter_1)
-        politician_1.setPersonalityValues(president.flatten(president.analyze(politician_1.handle)))
-        image_1_url = president.getProfilePicture(politician_1.handle)
+        politician_1.set_personality_values(politician.flatten(politician.analyze(politician_1.handle)))
+        image_1_url = politician.get_(politician_1.handle)
 
         modesty_1 = politician_1.modesty
         liberalism_1 = politician_1.liberalism
@@ -53,8 +53,8 @@ def results():
         morality_1 = politician_1.morality
 
         politician_2 = Tweeter('@' + twitter_2)
-        politician_2.setPersonalityValues(president.flatten(president.analyze(politician_2.handle)))
-        image_2_url = president.getProfilePicture(politician_2.handle)
+        politician_2.setPersonalityValues(politician.flatten(politician.analyze(politician_2.handle)))
+        image_2_url = politician.get_profile_picture(politician_2.handle)
 
         modesty_2 = politician_2.modesty
         liberalism_2 = politician_2.liberalism
@@ -103,7 +103,7 @@ def results():
             intellect_str = "{} and {} are both equally intellectual.".format(name_1, name_2)
 
         morality_value = 100 * abs(morality_1 - morality_2)
-        if morality_value< 0.1:
+        if morality_value < 0.1:
             morality_str = "{} and {} are both equally moral.".format(name_1, name_2)
         elif morality_1 > morality_2:
             morality_str = "{} is {:.1f}% more moral than {}.".format(name_1, morality_value, name_2)

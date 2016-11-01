@@ -2,7 +2,7 @@ import twitter
 from watson_developer_cloud import PersonalityInsightsV2 as PersonalityInsights
 
 
-class President:
+class Politician:
     def __init__(self):
         self.twitter_consumer_key = ''
         self.twitter_consumer_secret = ''
@@ -11,7 +11,7 @@ class President:
         self.pi_username = ''
         self.pi_password = ''
 
-    def set_API_keys(self):
+    def set_api_keys(self):
         apiFile = open("app/static/api_keys/api.txt", encoding="utf-8")
 
         self.twitter_consumer_key = apiFile.readline()[:-1]
@@ -21,7 +21,7 @@ class President:
         self.pi_username = apiFile.readline()[:-1]
         self.pi_password = apiFile.readline()[:-1]
 
-    def getProfilePicture(self, handle):
+    def get_profile_picture(self, handle):
         twitter_api = twitter.Api(
                                  consumer_key=self.twitter_consumer_key,
                                  consumer_secret=self.twitter_consumer_secret,
@@ -82,7 +82,7 @@ class President:
                                                 data[c3['id']] = c3['percentage']
         return data
 
-    def printKeys(self):
+    def print_keys(self):
         print("Twitter Consumer Key " + self.twitter_consumer_key)
         print("Twitter Consumer Secret " + self.twitter_consumer_secret)
         print("Twitter Access Token " + self.twitter_access_token)
@@ -96,7 +96,7 @@ class Tweeter:
         self.handle = handle
         # self.picture = picture
 
-    def setPersonalityValues(self, personalityDict):
+    def set_personality_values(self, personalityDict):
         self.cheerfulness = personalityDict["Cheerfulness"]
         self.trust = personalityDict["Trust"]
         self.cautiousness = personalityDict["Cautiousness"]
@@ -128,8 +128,8 @@ class Tweeter:
         self.efficacy = personalityDict["Self-efficacy"]
         self.intellect = personalityDict["Intellect"]
 
-    def setProfilePicture(self, imgURL):
+    def set_profile_picture(self, imgURL):
         self.picture = imgURL
 
-    def getTweeter(self):
+    def get_tweeter(self):
         return self
