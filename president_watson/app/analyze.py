@@ -21,14 +21,14 @@ class Politician:
         self.set_personality_data()
 
     def set_api_keys(self):
-        apiFile = open("app/static/api_keys/api.txt", encoding="utf-8")
+        api_file = open("app/static/api_keys/api.txt", encoding="utf-8")
 
-        self.twitter_consumer_key = apiFile.readline()[:-1]
-        self.twitter_consumer_secret = apiFile.readline()[:-1]
-        self.twitter_access_token = apiFile.readline()[:-1]
-        self.twitter_access_secret = apiFile.readline()[:-1]
-        self.pi_username = apiFile.readline()[:-1]
-        self.pi_password = apiFile.readline()[:-1]
+        self.twitter_consumer_key = api_file.readline()[:-1]
+        self.twitter_consumer_secret = api_file.readline()[:-1]
+        self.twitter_access_token = api_file.readline()[:-1]
+        self.twitter_access_secret = api_file.readline()[:-1]
+        self.pi_username = api_file.readline()[:-1]
+        self.pi_password = api_file.readline()[:-1]
 
     def set_profile_picture(self):
         twitter_api = twitter.Api(
@@ -64,28 +64,27 @@ class Politician:
                                               include_rts=False
                                               )
 
-        tdgd = ""
-
+        twitter_messages = ""
         for status in statuses:
             if (status.lang == 'en'):
-                tdgd += str(status.text.encode('utf-8')) + " "
+                twitter_messages += str(status.text.encode('utf-8')) + " "
 
-        self.pi_result = personality_insights.profile(tdgd)
+        self.pi_result = personality_insights.profile(twitter_messages)
 
     def flatten(self):  # Flatten function sourced from Codeacademy
         data = {}
-        for c in self.pi_result['tree']['children']:
-            if 'children' in c:
-                for c2 in c['children']:
-                    if 'children' in c2:
-                        for c3 in c2['children']:
-                            if 'children' in c3:
-                                for c4 in c3['children']:
-                                    if (c4['category'] == 'personality'):
-                                        data[c4['id']] = c4['percentage']
-                                        if 'children' not in c3:
-                                            if (c3['category'] == 'personality'):
-                                                data[c3['id']] = c3['percentage']
+        for a in self.pi_result['tree']['children']:
+            if 'children' in a:
+                for b in a['children']:
+                    if 'children' in b:
+                        for c in b['children']:
+                            if 'children' in c:
+                                for d in c['children']:
+                                    if (d['category'] == 'personality'):
+                                        data[d['id']] = d['percentage']
+                                        if 'children' not in c:
+                                            if c['category'] == 'personality':
+                                                data[c['id']] = c['percentage']
         self.data = data
 
     def set_personality_values(self):
@@ -119,11 +118,3 @@ class Politician:
         self.modesty = self.data["Modesty"]
         self.efficacy = self.data["Self-efficacy"]
         self.intellect = self.data["Intellect"]
-
-    def print_keys(self):
-        print("Twitter Consumer Key " + self.twitter_consumer_key)
-        print("Twitter Consumer Secret " + self.twitter_consumer_secret)
-        print("Twitter Access Token " + self.twitter_access_token)
-        print("Twitter Access Secret " + self.twitter_access_secret)
-        print("Watson PI Username " + self.pi_username)
-        print("Watson PI Password " + self.pi_password)
