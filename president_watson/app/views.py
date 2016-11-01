@@ -1,6 +1,6 @@
 from flask import render_template, request
 from app import app
-from .analyze import Politician, Tweeter
+from .analyze import Politician
 
 
 POLITICIANS = {"realDonaldTrump": "Donald Trump",
@@ -36,78 +36,58 @@ def results():
                                politicians=POLITICIANS
                                )
     else:
-        politician = Politician()
-        politician.set_API_keys()
-
         name_1 = POLITICIANS[twitter_1]
         name_2 = POLITICIANS[twitter_2]
 
-        politician_1 = Tweeter('@' + twitter_1)
-        politician_1.set_personality_values(politician.flatten(politician.analyze(politician_1.handle)))
-        image_1_url = politician.get_(politician_1.handle)
+        politician_1 = Politician(twitter_1)
+        politician_2 = Politician(twitter_1)
 
-        modesty_1 = politician_1.modesty
-        liberalism_1 = politician_1.liberalism
-        anger_1 = politician_1.anger
-        intellect_1 = politician_1.intellect
-        morality_1 = politician_1.morality
-
-        politician_2 = Tweeter('@' + twitter_2)
-        politician_2.setPersonalityValues(politician.flatten(politician.analyze(politician_2.handle)))
-        image_2_url = politician.get_profile_picture(politician_2.handle)
-
-        modesty_2 = politician_2.modesty
-        liberalism_2 = politician_2.liberalism
-        anger_2 = politician_2.anger
-        intellect_2 = politician_2.intellect
-        morality_2 = politician_2.morality
-
-        modesty_value = 100 * abs(modesty_1 - modesty_2)
+        modesty_value = 100 * abs(politician_1.modesty - politician_2.modesty)
         if modesty_value < 0.1:
             modesty_str = "{} and {} have an equal amount of modesty.".format(name_1, name_2)
-        elif modesty_1 > modesty_2:
+        elif politician_1.modesty > politician_2.modesty:
             modesty_str = "{} is {:.1f}% more modest than {}.".format(name_1, modesty_value, name_2)
-        elif modesty_1 < modesty_2:
+        elif politician_1.modesty < politician_2.modesty:
             modesty_str = "{} is {:.1f}% more modest than {}.".format(name_2, modesty_value, name_1)
         else:
             modesty_str = "{} and {} have an equal amount of modesty.".format(name_1, name_2)
 
-        liberalism_value = 100 * abs(liberalism_1 - liberalism_2)
+        liberalism_value = 100 * abs(politician_1.liberalism - politician_2.liberalism)
         if liberalism_value < 0.1:
             liberalism_str = "{} and {} have an equal amount of liberalism.".format(name_1, name_2)
-        elif liberalism_1 > liberalism_2:
+        elif politician_1.liberalism > politician_2.liberalism:
             liberalism_str = "{} is {:.1f}% more liberal than {}.".format(name_1, liberalism_value, name_2)
-        elif liberalism_1 < liberalism_2:
+        elif politician_1.liberalism < politician_2.liberalism:
             liberalism_str = "{} is {:.1f}% more liberal than {}.".format(name_2, liberalism_value, name_1)
         else:
             liberalism_str = "{} and {} have an equal amount of liberalism.".format(name_1, name_2)
 
-        anger_value = 100 * abs(anger_1 - anger_2)
+        anger_value = 100 * abs(politician_1.anger - politician_2.anger)
         if anger_value < 0.1:
             anger_str = "{} and {} have an equal amount of anger.".format(name_1, name_2)
-        elif anger_1 > anger_2:
+        elif politician_1.anger > politician_2.anger:
             anger_str = "{} is {:.1f}% more angry than {}.".format(name_1, anger_value, name_2)
-        elif anger_1 < anger_2:
+        elif politician_1.anger < politician_2.anger:
             anger_str = "{} is {:.1f}% more angry than {}.".format(name_2, anger_value, name_1)
         else:
             anger_str = "{} and {} have an equal amount of anger.".format(name_1, name_2)
 
-        intellect_value = 100 * abs(intellect_1 - intellect_2)
+        intellect_value = 100 * abs(politician_1.intellect - politician_2.intellect)
         if intellect_value < 0.1:
             intellect_str = "{} and {} are both equally intellectual.".format(name_1, name_2)
-        elif intellect_1 > intellect_2:
+        elif politician_1.intellect > politician_2.intellect:
             intellect_str = "{} is {:.1f}% more intellectual than {}.".format(name_1, intellect_value, name_2)
-        elif intellect_1 < intellect_2:
+        elif politician_1.intellect < politician_2.intellect:
             intellect_str = "{} is {:.1f}% more intellectual than {}.".format(name_2, intellect_value, name_1)
         else:
             intellect_str = "{} and {} are both equally intellectual.".format(name_1, name_2)
 
-        morality_value = 100 * abs(morality_1 - morality_2)
+        morality_value = 100 * abs(politician_1.morality - politician_2.morality)
         if morality_value < 0.1:
             morality_str = "{} and {} are both equally moral.".format(name_1, name_2)
-        elif morality_1 > morality_2:
+        elif politician_1.morality > politician_2.morality:
             morality_str = "{} is {:.1f}% more moral than {}.".format(name_1, morality_value, name_2)
-        elif morality_1 < morality_2:
+        elif politician_1.morality < politician_2.morality:
             morality_str = "{} is {:.1f}% more moral than {}.".format(name_2, morality_value, name_1)
         else:
             morality_str = "{} and {} are both equally moral.".format(name_1, name_2)
@@ -117,8 +97,8 @@ def results():
                                name_2_=name_2,
                                twitter_1_=twitter_1,
                                twitter_2_=twitter_2,
-                               image_1=image_1_url,
-                               image_2=image_2_url,
+                               image_1=politician_1.profile_pic,
+                               image_2=politician_2.profile_pic,
                                modesty_str_=modesty_str,
                                liberalism_str_=liberalism_str,
                                anger_str_=anger_str,

@@ -3,13 +3,22 @@ from watson_developer_cloud import PersonalityInsightsV2 as PersonalityInsights
 
 
 class Politician:
-    def __init__(self):
+    def __init__(self, handle):
+        self.twitter_handle = handle
+
+        # Twitter and Watson API keys
         self.twitter_consumer_key = ''
         self.twitter_consumer_secret = ''
         self.twitter_access_token = ''
         self.twitter_access_secret = ''
         self.pi_username = ''
         self.pi_password = ''
+
+        self.set_api_keys()
+        self.set_profile_picture()
+        self.analyze_tweets()
+        self.flatten()
+        self.set_personality_data()
 
     def set_api_keys(self):
         apiFile = open("app/static/api_keys/api.txt", encoding="utf-8")
@@ -21,7 +30,7 @@ class Politician:
         self.pi_username = apiFile.readline()[:-1]
         self.pi_password = apiFile.readline()[:-1]
 
-    def get_profile_picture(self, handle):
+    def set_profile_picture(self):
         twitter_api = twitter.Api(
                                  consumer_key=self.twitter_consumer_key,
                                  consumer_secret=self.twitter_consumer_secret,
@@ -29,15 +38,14 @@ class Politician:
                                  access_token_secret=self.twitter_access_secret
                                  )
         statuses = twitter_api.GetUserTimeline(
-                                              screen_name=handle,
+                                              screen_name=self.twitter_handle,
                                               count=1,
                                               include_rts=False
                                               )
         img = statuses[0].user.profile_image_url
+        self.profile_pic = img.replace("_normal", "")
 
-        return img.replace("_normal", "")
-
-    def analyze(self, handle):
+    def analyze_tweets(self):
         twitter_api = twitter.Api(
                                  consumer_key=self.twitter_consumer_key,
                                  consumer_secret=self.twitter_consumer_secret,
@@ -51,7 +59,7 @@ class Politician:
                                                   )
 
         statuses = twitter_api.GetUserTimeline(
-                                              screen_name=handle,
+                                              screen_name=self.twitter_handle,
                                               count=200,
                                               include_rts=False
                                               )
@@ -61,14 +69,12 @@ class Politician:
         for status in statuses:
             if (status.lang == 'en'):
                 tdgd += str(status.text.encode('utf-8')) + " "
-        pi_result = personality_insights.profile(tdgd)
 
-        return pi_result
+        self.pi_result = personality_insights.profile(tdgd)
 
-    # flatten function from codeacademy
-    def flatten(self, orig):
+    def flatten(self):  # Flatten function sourced from Codeacademy
         data = {}
-        for c in orig['tree']['children']:
+        for c in self.pi_result['tree']['children']:
             if 'children' in c:
                 for c2 in c['children']:
                     if 'children' in c2:
@@ -80,7 +86,39 @@ class Politician:
                                         if 'children' not in c3:
                                             if (c3['category'] == 'personality'):
                                                 data[c3['id']] = c3['percentage']
-        return data
+        self.data = data
+
+    def set_personality_values(self):
+        self.cheerfulness = self.data["Cheerfulness"]
+        self.trust = self.data["Trust"]
+        self.cautiousness = self.data["Cautiousness"]
+        self.orderliness = self.data["Orderliness"]
+        self.liberalism = self.data["Liberalism"]
+        self.anxiety = self.data["Anxiety"]
+        self.achievement = self.data["Achievement striving"]
+        self.altruism = self.data["Altruism"]
+        self.vulnerability = self.data["Vulnerability"]
+        self.discipline = self.data["Self-discipline"]
+        self.consciousness = self.data["Self-consciousness"]
+        self.assertiveness = self.data["Assertiveness"]
+        self.friendliness = self.data["Friendliness"]
+        self.immoderation = self.data["Immoderation"]
+        self.depression = self.data["Depression"]
+        self.emotionality = self.data["Emotionality"]
+        self.morality = self.data["Morality"]
+        self.cooperation = self.data["Cooperation"]
+        self.anger = self.data["Anger"]
+        self.duitifulness = self.data["Dutifulness"]
+        self.excitement = self.data["Excitement-seeking"]
+        self.artistic = self.data["Artistic interests"]
+        self.gregariousness = self.data["Gregariousness"]
+        self.imagination = self.data["Imagination"]
+        self.adventurousness = self.data["Adventurousness"]
+        self.sympathy = self.data["Sympathy"]
+        self.activity = self.data["Activity level"]
+        self.modesty = self.data["Modesty"]
+        self.efficacy = self.data["Self-efficacy"]
+        self.intellect = self.data["Intellect"]
 
     def print_keys(self):
         print("Twitter Consumer Key " + self.twitter_consumer_key)
@@ -89,47 +127,3 @@ class Politician:
         print("Twitter Access Secret " + self.twitter_access_secret)
         print("Watson PI Username " + self.pi_username)
         print("Watson PI Password " + self.pi_password)
-
-
-class Tweeter:
-    def __init__(self, handle):
-        self.handle = handle
-        # self.picture = picture
-
-    def set_personality_values(self, personalityDict):
-        self.cheerfulness = personalityDict["Cheerfulness"]
-        self.trust = personalityDict["Trust"]
-        self.cautiousness = personalityDict["Cautiousness"]
-        self.orderliness = personalityDict["Orderliness"]
-        self.liberalism = personalityDict["Liberalism"]
-        self.anxiety = personalityDict["Anxiety"]
-        self.achievement = personalityDict["Achievement striving"]
-        self.altruism = personalityDict["Altruism"]
-        self.vulnerability = personalityDict["Vulnerability"]
-        self.discipline = personalityDict["Self-discipline"]
-        self.consciousness = personalityDict["Self-consciousness"]
-        self.assertiveness = personalityDict["Assertiveness"]
-        self.friendliness = personalityDict["Friendliness"]
-        self.immoderation = personalityDict["Immoderation"]
-        self.depression = personalityDict["Depression"]
-        self.emotionality = personalityDict["Emotionality"]
-        self.morality = personalityDict["Morality"]
-        self.cooperation = personalityDict["Cooperation"]
-        self.anger = personalityDict["Anger"]
-        self.duitifulness = personalityDict["Dutifulness"]
-        self.excitement = personalityDict["Excitement-seeking"]
-        self.artistic = personalityDict["Artistic interests"]
-        self.gregariousness = personalityDict["Gregariousness"]
-        self.imagination = personalityDict["Imagination"]
-        self.adventurousness = personalityDict["Adventurousness"]
-        self.sympathy = personalityDict["Sympathy"]
-        self.activity = personalityDict["Activity level"]
-        self.modesty = personalityDict["Modesty"]
-        self.efficacy = personalityDict["Self-efficacy"]
-        self.intellect = personalityDict["Intellect"]
-
-    def set_profile_picture(self, imgURL):
-        self.picture = imgURL
-
-    def get_tweeter(self):
-        return self
