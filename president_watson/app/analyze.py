@@ -22,14 +22,13 @@ class Politician:
         self.set_personality_data()
 
     def set_api_keys(self):
-        api_file = open("app/static/api_keys/api.txt", encoding="utf-8")
-
-        self.twitter_consumer_key = api_file.readline()[:-1]
-        self.twitter_consumer_secret = api_file.readline()[:-1]
-        self.twitter_access_token = api_file.readline()[:-1]
-        self.twitter_access_secret = api_file.readline()[:-1]
-        self.pi_username = api_file.readline()[:-1]
-        self.pi_password = api_file.readline()[:-1]
+        with open("app/static/api_keys/api.txt", encoding="utf-8") as api_file:
+            self.twitter_consumer_key = api_file.readline()[:-1]
+            self.twitter_consumer_secret = api_file.readline()[:-1]
+            self.twitter_access_token = api_file.readline()[:-1]
+            self.twitter_access_secret = api_file.readline()[:-1]
+            self.pi_username = api_file.readline()[:-1]
+            self.pi_password = api_file.readline()[:-1]
 
     def receive_twitter_data(self):
         twitter_api = twitter.Api(
