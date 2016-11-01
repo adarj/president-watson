@@ -18,7 +18,7 @@ class Politician:
         self.receive_twitter_data()
         self.set_profile_picture()
         self.analyze_tweets()
-        self.flatten()
+        self.flatten_data()
         self.set_personality_data()
 
     def set_api_keys(self):
@@ -60,7 +60,7 @@ class Politician:
 
         self.pi_result = personality_insights.profile(twitter_messages)
 
-    def flatten(self):  # Flatten function sourced from Codeacademy
+    def flatten_data(self):  # Flatten function sourced from Codeacademy
         data = {}
         for a in self.pi_result['tree']['children']:
             if 'children' in a:
@@ -74,36 +74,36 @@ class Politician:
                                         if 'children' not in c:
                                             if c['category'] == 'personality':
                                                 data[c['id']] = c['percentage']
-        self.data = data
+        self.flattened_data = data
 
     def set_personality_values(self):
-        self.cheerfulness = self.data["Cheerfulness"]
-        self.trust = self.data["Trust"]
-        self.cautiousness = self.data["Cautiousness"]
-        self.orderliness = self.data["Orderliness"]
-        self.liberalism = self.data["Liberalism"]
-        self.anxiety = self.data["Anxiety"]
-        self.achievement = self.data["Achievement striving"]
-        self.altruism = self.data["Altruism"]
-        self.vulnerability = self.data["Vulnerability"]
-        self.discipline = self.data["Self-discipline"]
-        self.consciousness = self.data["Self-consciousness"]
-        self.assertiveness = self.data["Assertiveness"]
-        self.friendliness = self.data["Friendliness"]
-        self.immoderation = self.data["Immoderation"]
-        self.depression = self.data["Depression"]
-        self.emotionality = self.data["Emotionality"]
-        self.morality = self.data["Morality"]
-        self.cooperation = self.data["Cooperation"]
-        self.anger = self.data["Anger"]
-        self.duitifulness = self.data["Dutifulness"]
-        self.excitement = self.data["Excitement-seeking"]
-        self.artistic = self.data["Artistic interests"]
-        self.gregariousness = self.data["Gregariousness"]
-        self.imagination = self.data["Imagination"]
-        self.adventurousness = self.data["Adventurousness"]
-        self.sympathy = self.data["Sympathy"]
-        self.activity = self.data["Activity level"]
-        self.modesty = self.data["Modesty"]
-        self.efficacy = self.data["Self-efficacy"]
-        self.intellect = self.data["Intellect"]
+        self.cheerfulness = self.flattened_data["Cheerfulness"]
+        self.trust = self.flattened_data["Trust"]
+        self.cautiousness = self.flattened_data["Cautiousness"]
+        self.orderliness = self.flattened_data["Orderliness"]
+        self.liberalism = self.flattened_data["Liberalism"]
+        self.anxiety = self.flattened_data["Anxiety"]
+        self.achievement = self.flattened_data["Achievement striving"]
+        self.altruism = self.flattened_data["Altruism"]
+        self.vulnerability = self.flattened_data["Vulnerability"]
+        self.discipline = self.flattened_data["Self-discipline"]
+        self.consciousness = self.flattened_data["Self-consciousness"]
+        self.assertiveness = self.flattened_data["Assertiveness"]
+        self.friendliness = self.flattened_data["Friendliness"]
+        self.immoderation = self.flattened_data["Immoderation"]
+        self.depression = self.flattened_data["Depression"]
+        self.emotionality = self.flattened_data["Emotionality"]
+        self.morality = self.flattened_data["Morality"]
+        self.cooperation = self.flattened_data["Cooperation"]
+        self.anger = self.flattened_data["Anger"]
+        self.duitifulness = self.flattened_data["Dutifulness"]
+        self.excitement = self.flattened_data["Excitement-seeking"]
+        self.artistic = self.flattened_data["Artistic interests"]
+        self.gregariousness = self.flattened_data["Gregariousness"]
+        self.imagination = self.flattened_data["Imagination"]
+        self.adventurousness = self.flattened_data["Adventurousness"]
+        self.sympathy = self.flattened_data["Sympathy"]
+        self.activity = self.flattened_data["Activity level"]
+        self.modesty = self.flattened_data["Modesty"]
+        self.efficacy = self.flattened_data["Self-efficacy"]
+        self.intellect = self.flattened_data["Intellect"]
