@@ -19,7 +19,7 @@ class Politician:
         self.set_profile_picture()
         self.analyze_tweets()
         self.flatten_data()
-        self.set_personality_data()
+        self.set_personality_values()
 
     def set_api_keys(self):
         with open("app/static/api_keys/api.txt", encoding="utf-8") as api_file:
