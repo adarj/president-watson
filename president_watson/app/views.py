@@ -27,6 +27,9 @@ def index():
 
 
 def personality_compare(trait, value_1, value_2, name_1, name_2):
+    """
+    Creates a string that compares the values for the two inputted traits.
+    """
     percentage = 100 * abs(value_1 - value_2)
     if percentage < 0.1:
         return "{} and {} have an equal amount of {}.".format(name_1,
