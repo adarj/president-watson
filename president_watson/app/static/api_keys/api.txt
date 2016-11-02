@@ -1,7 +1,0 @@
-//ordering Place keys above this line in this order
-twitter_consumer_key
-twitter_consumer_secret
-twitter_access_token
-twitter_access_secret
-pi_username
-pi_password
