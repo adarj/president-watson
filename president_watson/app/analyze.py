@@ -1,3 +1,4 @@
+import configparser
 import twitter
 from watson_developer_cloud import PersonalityInsightsV2 as PersonalityInsights
 
@@ -14,13 +15,16 @@ class Politician:
         self.set_personality_values()
 
     def set_api_keys(self):
-        with open("app/static/api_keys/api.txt", encoding="utf-8") as api_file:
-            self.twitter_consumer_key = api_file.readline()[:-1]
-            self.twitter_consumer_secret = api_file.readline()[:-1]
-            self.twitter_access_token = api_file.readline()[:-1]
-            self.twitter_access_secret = api_file.readline()[:-1]
-            self.pi_username = api_file.readline()[:-1]
-            self.pi_password = api_file.readline()[:-1]
+        keys = configparser.ConfigParser()
+        keys.read('app/static/api_keys/keys.ini')
+
+        self.twitter_consumer_key = keys['Twitter']['consumer_keys']
+        self.twitter_consumer_secret = keys['Twitter']['consumer_secret']
+        self.twitter_access_token = keys['Twitter']['access_token']
+        self.twitter_access_secret = keys['Twitter']['access_secret']
+
+        self.pi_username = keys['Watson']['username']
+        self.pi_password = keys['Watson']['password']
 
     def receive_twitter_data(self):
         twitter_api = twitter.Api(
