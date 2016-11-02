@@ -6,14 +6,6 @@ class Politician:
     def __init__(self, handle):
         self.twitter_handle = handle
 
-        # Twitter and Watson API keys
-        self.twitter_consumer_key = ''
-        self.twitter_consumer_secret = ''
-        self.twitter_access_token = ''
-        self.twitter_access_secret = ''
-        self.pi_username = ''
-        self.pi_password = ''
-
         self.set_api_keys()
         self.receive_twitter_data()
         self.set_profile_picture()
