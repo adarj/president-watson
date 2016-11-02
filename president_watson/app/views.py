@@ -31,17 +31,20 @@ def personality_compare(trait, value_1, value_2, name_1, name_2):
     if percentage < 0.1:
         return "{} and {} have an equal amount of {}.".format(name_1,
                                                               name_2,
-                                                              trait)
+                                                              trait
+                                                              )
     elif value_1 > value_2:
         return "{} has {:.1f}% more {} than {}.".format(name_1,
                                                         percentage,
                                                         trait,
-                                                        name_2)
+                                                        name_2
+                                                        )
     elif value_1 < value_2:
         return "{} has {:.1f}% more {} than {}.".format(name_2,
                                                         percentage,
                                                         trait,
-                                                        name_2)
+                                                        name_2
+                                                        )
 
 
 @app.route('/results', methods=['GET'])
@@ -64,27 +67,32 @@ def results():
                                       politician_1.liberalism,
                                       politician_2.liberalism,
                                       name_1,
-                                      name_2)
+                                      name_2
+                                      )
         liberalism = personality_compare("liberalism",
                                          politician_1.liberalism,
                                          politician_2.liberalism,
                                          name_1,
-                                         name_2)
+                                         name_2
+                                         )
         anger = personality_compare("anger",
                                     politician_1.anger,
                                     politician_2.anger,
                                     name_1,
-                                    name_2)
+                                    name_2
+                                    )
         intellect = personality_compare("intellect",
                                         politician_1.intellect,
                                         politician_2.intellect,
                                         name_1,
-                                        name_2)
+                                        name_2
+                                        )
         morality = personality_compare("morality",
                                        politician_1.morality,
                                        politician_2.morality,
                                        name_1,
-                                       name_2)
+                                       name_2
+                                       )
 
         return render_template('results.html',
                                name_1=name_1,
