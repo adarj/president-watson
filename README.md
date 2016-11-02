@@ -14,6 +14,6 @@ watson-developer-cloud
 
 ## Instructions
 
-In order to start the website, navigate to the `president_watson` subfolder and run the following command:
+In order to start the website, you must first obtain keys for the Twitter and Watson APIs and paste them into the the `keys.ini` file located in `president_watson/app/static/api_keys/`. Afterwards, navigate to the `president_watson` directory and run the following command:
 
     python run.py

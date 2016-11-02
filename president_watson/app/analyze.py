@@ -4,6 +4,10 @@ from watson_developer_cloud import PersonalityInsightsV2 as PersonalityInsights
 
 
 class Politician:
+    """
+    Uses data sourced from a Twitter feed to find out the person's personality
+    traits.
+    """
     def __init__(self, handle):
         self.twitter_handle = handle
 
@@ -15,6 +19,19 @@ class Politician:
         self.set_personality_values()
 
     def set_api_keys(self):
+<<<<<<< HEAD
+        """
+        Receives the api keys from the text file. Will be replaced by
+        configparser in the future.
+        """
+        with open("app/static/api_keys/api.txt", encoding="utf-8") as api_file:
+            self.twitter_consumer_key = api_file.readline()[:-1]
+            self.twitter_consumer_secret = api_file.readline()[:-1]
+            self.twitter_access_token = api_file.readline()[:-1]
+            self.twitter_access_secret = api_file.readline()[:-1]
+            self.pi_username = api_file.readline()[:-1]
+            self.pi_password = api_file.readline()[:-1]
+=======
         keys = configparser.ConfigParser()
         keys.read('app/static/api_keys/keys.ini')
 
@@ -25,8 +42,13 @@ class Politician:
 
         self.pi_username = keys['Watson']['username']
         self.pi_password = keys['Watson']['password']
+>>>>>>> master
 
     def receive_twitter_data(self):
+        """
+        Uses the Twitter keys assigned in set_api_keys() to receive the latest
+        200 tweets from the Twitter feed.
+        """
         twitter_api = twitter.Api(
                                  consumer_key=self.twitter_consumer_key,
                                  consumer_secret=self.twitter_consumer_secret,
@@ -40,10 +62,17 @@ class Politician:
                                               )
 
     def set_profile_picture(self):
+        """
+        Uses the latest tweet to get the profile picture from the user.
+        """
         img = self.statuses[0].user.profile_image_url
         self.profile_pic = img.replace("_normal", "")
 
     def analyze_tweets(self):
+        """
+        Uploads the string of tweets to the Personality Insights AI of Watson
+        to receive the values of the personality traits.
+        """
         personality_insights = PersonalityInsights(
                                                   username=self.pi_username,
                                                   password=self.pi_password
@@ -56,7 +85,12 @@ class Politician:
 
         self.pi_result = personality_insights.profile(twitter_messages)
 
-    def flatten_data(self):  # Flatten function sourced from Codeacademy
+    def flatten_data(self):
+        """
+        Makes the data sourced from the Personality Insights AI easier to read.
+
+        (Sourced from Codeacademy)
+        """
         data = {}
         for a in self.pi_result['tree']['children']:
             if 'children' in a:
@@ -73,6 +107,10 @@ class Politician:
         self.flattened_data = data
 
     def set_personality_values(self):
+        """
+        Makes the values of the personality traits available for other modules
+        to easily use.
+        """
         self.cheerfulness = self.flattened_data["Cheerfulness"]
         self.trust = self.flattened_data["Trust"]
         self.cautiousness = self.flattened_data["Cautiousness"]
