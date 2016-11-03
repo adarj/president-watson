@@ -1,28 +1,17 @@
+import configparser
 from flask import render_template, request
 from app import app
 from .analyze import Politician
 
 
-POLITICIANS = {"realDonaldTrump": "Donald Trump",
-               "HillaryClinton": "Hillary Clinton",
-               "BernieSanders": "Bernie Sanders",
-               "BarackObama": "Barack Obama",
-               "tedcruz": "Ted Cruz",
-               "JoeBiden": "Joe Biden",
-               "GovPenceIN": "Mike Pence",
-               "SylvesterTurner": "Sylvester Turner",
-               "GregAbbott_TX": "Greg Abbott",
-               "SarahPalinUSA": "Sarah Palin",
-               "GovGaryJohnson": "Gary Johnson",
-               "DrJillStein": "Jill Stein"
-               }
-
-
 @app.route('/')
 @app.route('/index')
 def index():
+    politicians = configparser.ConfigParser()
+    politicians.read('app/static/config/twitter_handles.ini')
+
     return render_template('index.html',
-                           politicians=POLITICIANS
+                           politicians=politicians['Twitter Handles']
                            )
 
 
@@ -40,7 +29,7 @@ def personality_compare(trait, value_1, value_2, name_1, name_2):
                                                         name_2
                                                         )
     elif value_1 < value_2:
-        return "{} has {:.1f}% more {} than {}.".format(name_2,
+        return "{} has {:.1f}% more {} than {}.".format(name_1,
                                                         percentage,
                                                         trait,
                                                         name_2
@@ -53,50 +42,45 @@ def results():
     twitter_2 = request.args.get('Politician_2')
 
     if twitter_1 == twitter_2:
-        return render_template('index.html',
-                               politicians=POLITICIANS
-                               )
+        index()
     else:
-        name_1 = POLITICIANS[twitter_1]
-        name_2 = POLITICIANS[twitter_2]
-
         politician_1 = Politician(twitter_1)
         politician_2 = Politician(twitter_2)
 
         modesty = personality_compare("modesty",
-                                      politician_1.liberalism,
-                                      politician_2.liberalism,
-                                      name_1,
-                                      name_2
+                                      politician_1.modesty,
+                                      politician_2.modesty,
+                                      politician_1.name,
+                                      politician_2.name
                                       )
         liberalism = personality_compare("liberalism",
                                          politician_1.liberalism,
                                          politician_2.liberalism,
-                                         name_1,
-                                         name_2
+                                         politician_1.name,
+                                         politician_2.name
                                          )
         anger = personality_compare("anger",
                                     politician_1.anger,
                                     politician_2.anger,
-                                    name_1,
-                                    name_2
+                                    politician_1.name,
+                                    politician_2.name
                                     )
         intellect = personality_compare("intellect",
                                         politician_1.intellect,
                                         politician_2.intellect,
-                                        name_1,
-                                        name_2
+                                        politician_1.name,
+                                        politician_2.name
                                         )
         morality = personality_compare("morality",
                                        politician_1.morality,
                                        politician_2.morality,
-                                       name_1,
-                                       name_2
+                                       politician_1.name,
+                                       politician_2.name
                                        )
 
         return render_template('results.html',
-                               name_1=name_1,
-                               name_2=name_2,
+                               politician_1=politician_1.name,
+                               politician_2=politician_2.name,
                                twitter_1=twitter_1,
                                twitter_2=twitter_2,
                                image_1=politician_1.profile_pic,
