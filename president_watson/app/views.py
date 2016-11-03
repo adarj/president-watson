@@ -29,10 +29,10 @@ def personality_compare(trait, value_1, value_2, name_1, name_2):
                                                         name_2
                                                         )
     elif value_1 < value_2:
-        return "{} has {:.1f}% more {} than {}.".format(name_1,
+        return "{} has {:.1f}% more {} than {}.".format(name_2,
                                                         percentage,
                                                         trait,
-                                                        name_2
+                                                        name_1
                                                         )
 
 
