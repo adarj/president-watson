@@ -11,6 +11,10 @@ class Politician:
     def __init__(self, handle):
         self.twitter_handle = handle
 
+        names = configparser.ConfigParser()
+        names.read('app/static/config/twitter_handles.ini')
+        self.name = names['Twitter Handles'][self.twitter_handle]
+
         self.set_api_keys()
         self.receive_twitter_data()
         self.set_profile_picture()
@@ -33,7 +37,7 @@ class Politician:
             self.pi_password = api_file.readline()[:-1]
 =======
         keys = configparser.ConfigParser()
-        keys.read('app/static/api_keys/keys.ini')
+        keys.read('app/static/config/api_keys.ini')
 
         self.twitter_consumer_key = keys['Twitter']['consumer_keys']
         self.twitter_consumer_secret = keys['Twitter']['consumer_secret']
