@@ -16,7 +16,7 @@ class Politician:
 
     def set_api_keys(self):
         keys = configparser.ConfigParser()
-        keys.read('app/static/api_keys/keys.ini')
+        keys.read('app/static/config/api_keys.ini')
 
         self.twitter_consumer_key = keys['Twitter']['consumer_keys']
         self.twitter_consumer_secret = keys['Twitter']['consumer_secret']
