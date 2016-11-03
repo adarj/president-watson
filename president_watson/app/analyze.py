@@ -23,7 +23,6 @@ class Politician:
         self.set_personality_values()
 
     def set_api_keys(self):
-<<<<<<< HEAD
         """
         Receives the api keys from the text file. Will be replaced by
         configparser in the future.
@@ -35,7 +34,7 @@ class Politician:
             self.twitter_access_secret = api_file.readline()[:-1]
             self.pi_username = api_file.readline()[:-1]
             self.pi_password = api_file.readline()[:-1]
-=======
+
         keys = configparser.ConfigParser()
         keys.read('app/static/config/api_keys.ini')
 
@@ -46,7 +45,6 @@ class Politician:
 
         self.pi_username = keys['Watson']['username']
         self.pi_password = keys['Watson']['password']
->>>>>>> master
 
     def receive_twitter_data(self):
         """
