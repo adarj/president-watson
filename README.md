@@ -7,7 +7,8 @@ Compares the personality traits of two politicians using the Watson API and Twit
 This program was tested using Python 3.5; however, Python 3.4 should work as well. In order to run the program, the following modules must be installed using pip:
 
 ```
-Flask
+flask
+flask-bootstrap
 python-twitter
 watson-developer-cloud
 ```
