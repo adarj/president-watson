@@ -11,6 +11,10 @@ class Politician:
     def __init__(self, handle):
         self.twitter_handle = handle
 
+        names = configparser.ConfigParser()
+        names.read('app/static/config/twitter_handles.ini')
+        self.name = names['Twitter Handles'][self.twitter_handle]
+
         self.set_api_keys()
         self.receive_twitter_data()
         self.set_profile_picture()
@@ -19,21 +23,12 @@ class Politician:
         self.set_personality_values()
 
     def set_api_keys(self):
-<<<<<<< HEAD
         """
         Receives the api keys from the text file. Will be replaced by
         configparser in the future.
         """
-        with open("app/static/api_keys/api.txt", encoding="utf-8") as api_file:
-            self.twitter_consumer_key = api_file.readline()[:-1]
-            self.twitter_consumer_secret = api_file.readline()[:-1]
-            self.twitter_access_token = api_file.readline()[:-1]
-            self.twitter_access_secret = api_file.readline()[:-1]
-            self.pi_username = api_file.readline()[:-1]
-            self.pi_password = api_file.readline()[:-1]
-=======
         keys = configparser.ConfigParser()
-        keys.read('app/static/api_keys/keys.ini')
+        keys.read('app/static/config/api_keys.ini')
 
         self.twitter_consumer_key = keys['Twitter']['consumer_keys']
         self.twitter_consumer_secret = keys['Twitter']['consumer_secret']
@@ -42,7 +37,6 @@ class Politician:
 
         self.pi_username = keys['Watson']['username']
         self.pi_password = keys['Watson']['password']
->>>>>>> master
 
     def receive_twitter_data(self):
         """
