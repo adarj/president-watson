@@ -1,58 +1,45 @@
-{% extends "base.html" %}
+{% extends "bootstrap/base.html" %}
+{% block title %}President Watson{% endblock %}
 
-{% block body %}
-  <div class="splash-container">
-    <div class="splash">
-      <p class="splash-subhead">
-      President Watson is a program that uses the IBM Watson API to compare the personality traits of two politicians. This program can be used to help citizens make informed decisions about voting by learning more about their politician's thinking patterns and temperament.
-      </p>
-    </div>
+{% block content %}
+<div class="jumbotron">
+  <h1 class="text-center">President Watson</h1>
+  <p>President Watson is a program that uses the IBM Watson API to compare the personality traits of two politicians. This program can be used to help citizens make informed decisions about voting by learning more about their politician's thinking patterns and temperament.</p>
+</div>
+
+<form class="content" name="Politicians" action="{{ url_for('results') }}" method="GET">
+  <div class="content">
+    <h2 class="text-center">Compare Politicians</h2>
   </div>
 
-  <form class="content-wrapper" name="Politicians" action="{{ url_for('results') }}" method="GET">
-    <div class="content">
-      <h2 class="content-head is-center">
-        Compare Politicians
-      </h2>
-    </div>
-
-    <div class="pure-g">
-
-      <div class="pure-u-1-2">
-        <h3 class="content-subhead is-center">
-          First Politician
-        </h3>
-        <div class="content-subhead is-center">
-          <select name="Politician_1">
-            {% for politician in politicians %}
-            <option value={{politician}}>{{politicians[politician]}} (@{{politician}})</option>
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-
-      <div class="pure-u-1-2">
-        <h3 class="content-subhead is-center">
-          Second Politician
-        </h3>
-        <div class="content-subhead is-center">
-          <select name="Politician_2">
-            {% for politician in politicians %}
-            <option value={{politician}}>{{politicians[politician]}} (@{{politician}})</option>
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="pure-g">
-      <div class="pure-u-1-1">
-        <div class="content-subhead is-center">
-          <button type="submit">Compare!</button>
-        </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h3 class="text-center">First Politician</h3>
+      <div class="content">
+        <select class="center-block" name="Politician_1">
+          {% for politician in politicians %}
+          <option value={{politician}}>{{politicians[politician]}} (@{{politician}})</option>
+          {% endfor %}
+        </select>
       </div>
     </div>
 
-  </form>
+    <div class="col-sm-6">
+      <h3 class="text-center">Second Politician</h3>
+      <div class="content">
+        <select class="center-block" name="Politician_2">
+          {% for politician in politicians %}
+          <option value={{politician}}>{{politicians[politician]}} (@{{politician}})</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="content-fluid">
+    <button class="center-block" type="submit">Compare!</button>
+  </div>
+
+</form>
 {% endblock %}
