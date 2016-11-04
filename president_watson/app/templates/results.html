@@ -1,44 +1,38 @@
-{% extends "base.html" %}
+{% extends "bootstrap/base.html" %}
+{% block title %}President Watson{% endblock %}
 
-{% block body %}
-  <div class="splash-container">
-    <div class="splash">
-      <p class="splash-subhead">
-      Using the IBM Watson API, we are able to extrapolate each politician's personality traits using data from their Twitter feed.
-      </p>
+{% block content %}
+<div class="jumbotron">
+  <h1 class="text-center">President Watson</h1>
+  <p style="margin-left: 10%; margin-right: 10%">President Watson is a program that uses the IBM Watson API to compare the personality traits of two politicians. This program can be used to help citizens make informed decisions about voting by learning more about their politician's thinking patterns and temperament.</p>
+</div>
+
+<div class="content">
+  <div class="row">
+    <div class="col-sm-6">
+      <img class="center-block" style="height: 300px" src={{ image_1 }}>
+      <h3 class="text-center">{{ politician_1 }} (@{{twitter_1 }})</h3>
+    </div>
+    <div class="col-sm-6">
+      <img class="center-block" style="height: 300px" src={{ image_2 }}>
+      <h3 class="text-center">{{ politician_2 }} (@{{twitter_2 }})</h3>
     </div>
   </div>
+</div>
 
-  <div class="content-wrapper">
-    <div class="content">
-      <div class="pure-g" style="background-color:#D3D3D3">
-        <div class="pure-u-1-2">
-          <div class="content-head" style="margin-left:auto;margin-right:auto">
-            <img class="is-center profile-picture" src={{ image_1 }} style="height:300px;display:block;margin-left:auto;margin-right:auto">
-            <h3 class="is-center">{{ name_1 }} (@{{twitter_1 }})</h3>
-          </div>
-        </div>
-        <div class="pure-u-1-2">
-          <div class="content-head" style="margin-left:auto;margin-right:auto">
-            <img class="is-center profile-picture" src={{ image_2 }} style="height:300px;display:block;margin-left:auto;margin-right:auto">
-            <h3 class="is-center">{{ name_2 }} (@{{twitter_2 }})</h3>
-          </div>
-        </div>
-      </div>
-      <h2 class="content-head is-center">
-        Based on their Twitter Feeds...
-      </h2>
-
-      <div class="pure-g">
-        <div class="pure-u-1-1 is-center">
-          <p>{{ modesty }}</p>
-          <p>{{ liberalism }}</p>
-          <p>{{ anger }}</p>
-          <p>{{ intellect }}</p>
-          <p>{{ morality }}</p>
-        </div>
-      </div>
-    </div>
+<div class="content">
+  <h2 class="text-center">Based on their Twitter Feeds...</h2>
+  <div class="text-center">
+    <p>{{ modesty }}</p>
+    <p>{{ liberalism }}</p>
+    <p>{{ anger }}</p>
+    <p>{{ intellect }}</p>
+    <p>{{ morality }}</p>
   </div>
+</div>
+
+<div class="content text-center">
+  <a href="/">Do another comparison!</a>
+</div>
 
 {% endblock %}

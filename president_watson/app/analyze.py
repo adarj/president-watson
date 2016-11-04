@@ -27,14 +27,6 @@ class Politician:
         Receives the api keys from the text file. Will be replaced by
         configparser in the future.
         """
-        with open("app/static/api_keys/api.txt", encoding="utf-8") as api_file:
-            self.twitter_consumer_key = api_file.readline()[:-1]
-            self.twitter_consumer_secret = api_file.readline()[:-1]
-            self.twitter_access_token = api_file.readline()[:-1]
-            self.twitter_access_secret = api_file.readline()[:-1]
-            self.pi_username = api_file.readline()[:-1]
-            self.pi_password = api_file.readline()[:-1]
-
         keys = configparser.ConfigParser()
         keys.read('app/static/config/api_keys.ini')
 
